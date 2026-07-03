@@ -34,6 +34,6 @@ public class Room {
     private String description;
 
     @OneToOne
-    @JoinColumn(name = "current_tenant_id", referencedColumnName = "id")
+    @JoinColumn(name = "current_tenant_id", referencedColumnName = "id", nullable = true)
     private Tenants currentTenant;
 }
