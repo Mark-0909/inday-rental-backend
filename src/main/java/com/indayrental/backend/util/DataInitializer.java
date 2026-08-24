@@ -3,9 +3,13 @@ package com.indayrental.backend.util;
 import com.indayrental.backend.model.Room;
 import com.indayrental.backend.repository.RoomRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
+@Order(2)
 public class DataInitializer implements CommandLineRunner {
 
     private final RoomRepository roomRepository;
@@ -22,8 +26,8 @@ public class DataInitializer implements CommandLineRunner {
                     .monthlyRent(5500.0)
                     .status("AVAILABLE")
                     .description("Ground floor unit near main gate")
-                    .images("[]")
-                    .maxOccupancy(2) // ⭐ Added default occupancy limit to satisfy non-null check
+                    .images(List.of())
+                    .maxOccupancy(2)
                     .build();
 
             Room unit102 = Room.builder()
@@ -31,8 +35,8 @@ public class DataInitializer implements CommandLineRunner {
                     .monthlyRent(6000.0)
                     .status("AVAILABLE")
                     .description("Second floor unit with balcony")
-                    .images("[]")
-                    .maxOccupancy(4) // ⭐ Added default occupancy limit to satisfy non-null check
+                    .images(List.of())
+                    .maxOccupancy(4)
                     .build();
 
             roomRepository.save(unit101);
