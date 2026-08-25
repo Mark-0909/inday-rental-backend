@@ -38,13 +38,7 @@ public class Billing {
     private Double currentElectricityReading;
 
     @Column(name = "electricity_rate", nullable = false)
-    private Double electricityRate;
-
-    @Column(name = "previous_water_reading", nullable = false)
-    private Double previousWaterReading;
-
-    @Column(name = "current_water_reading", nullable = false)
-    private Double currentWaterReading;
+    private Double electricityRatePerKwh;
 
     @Column(name = "electricity_bill", nullable = false)
     private Double electricityBill;
