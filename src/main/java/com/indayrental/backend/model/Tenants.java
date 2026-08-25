@@ -30,6 +30,9 @@ public class Tenants {
     @Column(name = "move_out_date", nullable = true)
     private String moveOutDate;
 
+    @Column(name = "billing_date", nullable = false)
+    private String billingDate;
+
     @Column(name = "status", nullable = false)
     private String status;
 }
