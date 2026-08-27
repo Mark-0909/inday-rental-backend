@@ -9,8 +9,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/tenants")
-@CrossOrigin(origins = "http://localhost:3000", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-        RequestMethod.DELETE }, allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 public class TenantController {
 
     @Autowired
@@ -66,3 +65,5 @@ public class TenantController {
     }
 
 }
+
+
