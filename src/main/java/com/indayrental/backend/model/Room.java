@@ -36,7 +36,7 @@ public class Room {
     @Builder.Default
     private List<String> images = new ArrayList<>();
 
-    @Column(name = "description", nullable = true)
+    @Column(name = "description", nullable = true, columnDefinition = "TEXT")
     private String description;
 
     @OneToOne
