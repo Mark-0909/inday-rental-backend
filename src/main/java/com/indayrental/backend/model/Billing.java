@@ -22,7 +22,7 @@ public class Billing {
     private Tenants tenant;
 
     @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false)
+    @JoinColumn(name = "room_id", nullable = true)
     private Room room;
 
     @Column(name = "rent_amount", nullable = false)
