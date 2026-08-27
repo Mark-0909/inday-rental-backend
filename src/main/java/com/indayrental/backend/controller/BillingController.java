@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -44,17 +45,34 @@ public class BillingController {
 
         billing.setTenant(tenant);
         billing.setRoom(room);
-        billing.setRentAmount(dto.getRentAmount());
-        billing.setElectricityReadingImg(dto.getElectricityReadingImg());
-        billing.setPreviousElectricityReading(dto.getPreviousElectricityReading());
-        billing.setCurrentElectricityReading(dto.getCurrentElectricityReading());
-        billing.setElectricityRatePerKwh(dto.getElectricityRatePerKwh());
-        billing.setElectricityBill(dto.getElectricityBill());
-        billing.setWaterBill(dto.getWaterBill());
-        billing.setTotalAmount(dto.getTotalAmount());
-        billing.setBillingDate(dto.getBillingDate());
-        billing.setDueDate(dto.getDueDate());
-        billing.setStatus(dto.getStatus());
+        
+        Double rentAmount = dto.getRentAmount() != null ? dto.getRentAmount() : 0.0;
+        Double previousReading = dto.getPreviousElectricityReading() != null ? dto.getPreviousElectricityReading() : 0.0;
+        Double currentReading = dto.getCurrentElectricityReading() != null ? dto.getCurrentElectricityReading() : 0.0;
+        Double rate = dto.getElectricityRatePerKwh() != null ? dto.getElectricityRatePerKwh() : 0.0;
+        Double waterBill = dto.getWaterBill() != null ? dto.getWaterBill() : 0.0;
+        
+        Double electricityBill = dto.getElectricityBill();
+        if (electricityBill == null) {
+            electricityBill = (currentReading - previousReading) * rate;
+        }
+        
+        Double totalAmount = dto.getTotalAmount();
+        if (totalAmount == null) {
+            totalAmount = rentAmount + electricityBill + waterBill;
+        }
+
+        billing.setRentAmount(rentAmount);
+        billing.setElectricityReadingImg(dto.getElectricityReadingImg() != null ? dto.getElectricityReadingImg() : "");
+        billing.setPreviousElectricityReading(previousReading);
+        billing.setCurrentElectricityReading(currentReading);
+        billing.setElectricityRatePerKwh(rate);
+        billing.setElectricityBill(electricityBill);
+        billing.setWaterBill(waterBill);
+        billing.setTotalAmount(totalAmount);
+        billing.setBillingDate(dto.getBillingDate() != null ? dto.getBillingDate() : LocalDate.now());
+        billing.setDueDate(dto.getDueDate() != null ? dto.getDueDate() : LocalDate.now().plusDays(7));
+        billing.setStatus(dto.getStatus() != null ? dto.getStatus() : "UNPAID");
         billing.setDatePaid(dto.getDatePaid());
 
         return billingRepository.save(billing);
@@ -72,17 +90,34 @@ public class BillingController {
 
         billing.setTenant(tenant);
         billing.setRoom(room);
-        billing.setRentAmount(dto.getRentAmount());
-        billing.setElectricityReadingImg(dto.getElectricityReadingImg());
-        billing.setPreviousElectricityReading(dto.getPreviousElectricityReading());
-        billing.setCurrentElectricityReading(dto.getCurrentElectricityReading());
-        billing.setElectricityRatePerKwh(dto.getElectricityRatePerKwh());
-        billing.setElectricityBill(dto.getElectricityBill());
-        billing.setWaterBill(dto.getWaterBill());
-        billing.setTotalAmount(dto.getTotalAmount());
-        billing.setBillingDate(dto.getBillingDate());
-        billing.setDueDate(dto.getDueDate());
-        billing.setStatus(dto.getStatus());
+
+        Double rentAmount = dto.getRentAmount() != null ? dto.getRentAmount() : 0.0;
+        Double previousReading = dto.getPreviousElectricityReading() != null ? dto.getPreviousElectricityReading() : 0.0;
+        Double currentReading = dto.getCurrentElectricityReading() != null ? dto.getCurrentElectricityReading() : 0.0;
+        Double rate = dto.getElectricityRatePerKwh() != null ? dto.getElectricityRatePerKwh() : 0.0;
+        Double waterBill = dto.getWaterBill() != null ? dto.getWaterBill() : 0.0;
+
+        Double electricityBill = dto.getElectricityBill();
+        if (electricityBill == null) {
+            electricityBill = (currentReading - previousReading) * rate;
+        }
+
+        Double totalAmount = dto.getTotalAmount();
+        if (totalAmount == null) {
+            totalAmount = rentAmount + electricityBill + waterBill;
+        }
+
+        billing.setRentAmount(rentAmount);
+        billing.setElectricityReadingImg(dto.getElectricityReadingImg() != null ? dto.getElectricityReadingImg() : "");
+        billing.setPreviousElectricityReading(previousReading);
+        billing.setCurrentElectricityReading(currentReading);
+        billing.setElectricityRatePerKwh(rate);
+        billing.setElectricityBill(electricityBill);
+        billing.setWaterBill(waterBill);
+        billing.setTotalAmount(totalAmount);
+        billing.setBillingDate(dto.getBillingDate() != null ? dto.getBillingDate() : LocalDate.now());
+        billing.setDueDate(dto.getDueDate() != null ? dto.getDueDate() : LocalDate.now().plusDays(7));
+        billing.setStatus(dto.getStatus() != null ? dto.getStatus() : "UNPAID");
         billing.setDatePaid(dto.getDatePaid());
 
         return billingRepository.save(billing);
