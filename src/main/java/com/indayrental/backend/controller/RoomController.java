@@ -27,8 +27,10 @@ public class RoomController {
     private SupabaseStorageService supabaseStorageService;
 
     @GetMapping
-    public List<Room> getAllRooms() {
-        return roomRepository.findAll();
+    public org.springframework.data.domain.Page<Room> getAllRooms(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return roomRepository.findAll(org.springframework.data.domain.PageRequest.of(page, size));
     }
 
     @PostMapping

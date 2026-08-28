@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/billing")
@@ -29,8 +28,10 @@ public class BillingController {
     private TenantsRepository tenantsRepository;
 
     @GetMapping
-    public List<Billing> getAllBilling() {
-        return billingRepository.findAll();
+    public org.springframework.data.domain.Page<Billing> getAllBilling(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return billingRepository.findAll(org.springframework.data.domain.PageRequest.of(page, size));
     }
 
     // Only ONE @PostMapping method for creating invoices

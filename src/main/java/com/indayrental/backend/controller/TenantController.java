@@ -5,7 +5,6 @@ import com.indayrental.backend.repository.TenantsRepository;
 import com.indayrental.backend.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
 
 @RestController
 @RequestMapping("/api/tenants")
@@ -19,8 +18,10 @@ public class TenantController {
     private RoomRepository roomRepository;
 
     @GetMapping
-    public List<Tenants> getAlltenants() {
-        return tenantRepository.findAll();
+    public org.springframework.data.domain.Page<Tenants> getAlltenants(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return tenantRepository.findAll(org.springframework.data.domain.PageRequest.of(page, size));
     }
 
     @PostMapping
