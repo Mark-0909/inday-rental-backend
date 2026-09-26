@@ -22,3 +22,8 @@ spring:
 server:
   address: ${HOST:0.0.0.0}
   port: ${PORT:8080}
+
+
+supabase:
+  url: ${SUPABASE_URL:https://enqmmdwvbflfnnkgzqlr.supabase.co}
+  key: ${SUPABASE_KEY:sb_publishable_-Gem5c88-Jasb2y4zjyf2g_nsGciidR}
