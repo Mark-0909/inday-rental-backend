@@ -25,5 +25,5 @@ server:
 
 
 supabase:
-  url: ${SUPABASE_URL:https://enqmmdwvbflfnnkgzqlr.supabase.co}
-  key: ${SUPABASE_KEY:sb_publishable_-Gem5c88-Jasb2y4zjyf2g_nsGciidR}
+  url: ${SUPABASE_URL}
+  key: ${SUPABASE_PUBLISHABLE_KEY}

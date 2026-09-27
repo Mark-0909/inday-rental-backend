@@ -19,10 +19,10 @@ public class HealthController {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${supabase.url:https://enqmmdwvbflfnnkgzqlr.supabase.co}")
+    @Value("${supabase.url}")
     private String supabaseUrl;
 
-    @Value("${supabase.key:sb_publishable_-Gem5c88-Jasb2y4zjyf2g_nsGciidR}")
+    @Value("${supabase.key}")
     private String supabaseKey;
 
     @GetMapping("/health")
@@ -37,14 +37,14 @@ public class HealthController {
             HttpEntity<String> entity = new HttpEntity<>(headers);
 
             restTemplate.exchange(
-                supabaseUrl + "/rest/v1/",
+                supabaseUrl + "/auth/v1/health",
                 HttpMethod.GET,
                 entity,
                 String.class
             );
             response.put("supabase", "OK");
         } catch (Exception e) {
-            response.put("supabase", "WARN: " + e.getMessage());
+            response.put("supabase", "WARN: Unable to reach database");
         }
 
         return ResponseEntity.ok(response);
